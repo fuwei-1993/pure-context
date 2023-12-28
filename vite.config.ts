@@ -25,6 +25,7 @@ export default defineConfig(({ command }) => {
               'createElement',
               'cloneElement',
               'isValidElement',
+              'createContext',
             ],
           },
         ],

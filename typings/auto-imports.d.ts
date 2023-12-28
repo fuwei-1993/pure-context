@@ -2,6 +2,7 @@
 // We suggest you to commit this file into source control
 declare global {
   const cloneElement: typeof import('react')['cloneElement']
+  const createContext: typeof import('react')['createContext']
   const createElement: typeof import('react')['createElement']
   const isValidElement: typeof import('react')['isValidElement']
   const lazy: typeof import('react')['lazy']
