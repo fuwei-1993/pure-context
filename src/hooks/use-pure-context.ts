@@ -5,15 +5,18 @@ import { difference } from 'lodash-es'
 export const usePureContext = <T extends Record<string, any>>() => {
   const freezedContext = useContext(FreezedContext)
   const { proxyState, deps } = depsCollection(freezedContext.state as T)
+  const depsRef = useRef(deps)
   const [state, setState] = useState(proxyState)
 
   useEffect(() => {
     const observer = (changeKeys: string[]) => {
+      const deps = depsRef.current
       const isStateChange =
         difference([...deps.values()], changeKeys).length < deps.size
 
       if (isStateChange) {
-        const { proxyState } = depsCollection(freezedContext.state)
+        const { proxyState, deps } = depsCollection(freezedContext.state)
+        depsRef.current = deps
         setState(proxyState)
       }
     }
