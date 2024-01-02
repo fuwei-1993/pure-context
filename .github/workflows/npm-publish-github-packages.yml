@@ -22,7 +22,7 @@ jobs:
           cache: 'pnpm'
         # 安装依赖，相当于 npm ci
       - name: Install dependencies 📦️
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: build 📦️
         run: npm build
 
