@@ -29,11 +29,12 @@
     "README.md"
   ],
   "scripts": {
-    "build": "standard-version && tsc && tsc-alias && vite build --base src",
+    "build": "tsc && tsc-alias && vite build --base src",
     "start": "vite",
     "lint": "eslint --ext .tsx,.ts --fix ./src",
     "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch"
+    "test:watch": "jest --coverage --watch",
+    "release": "standard-version && npm publish"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
