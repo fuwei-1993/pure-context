@@ -33,8 +33,7 @@
     "start": "vite",
     "lint": "eslint --ext .tsx,.ts --fix ./src",
     "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch",
-    "prepublishOnly": "npm run build"
+    "test:watch": "jest --coverage --watch"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
