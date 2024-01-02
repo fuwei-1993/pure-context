@@ -1,6 +1,6 @@
 {
   "name": "pure-context",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "fuwei <454575238@qq.com>",
   "license": "MIT",
   "main": "dist/index.umd.cjs",
@@ -29,7 +29,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && tsc-alias && vite build --base src",
+    "build": "standard-version && tsc && tsc-alias && vite build --base src",
     "start": "vite",
     "lint": "eslint --ext .tsx,.ts --fix ./src",
     "test": "jest --coverage",
@@ -72,6 +72,7 @@
     "prettier": "^2.5.1",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
+    "standard-version": "^9.5.0",
     "tsc-alias": "^1.8.8",
     "typescript": "^4.5.5",
     "typescript-transform-paths": "^3.3.1",
