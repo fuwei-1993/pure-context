@@ -1,9 +1,16 @@
+import { logger, shallowCompareFn } from '@utils/index'
 import type { PropsWithChildren } from 'react'
 
-interface ObservableValue<T = any> {
+export interface ObservableValue<T = any> {
   state: T
   observers: Set<(keys: string[]) => void>
 }
+
+interface ProviderProps<T> {
+  useHook: () => T
+  logger?: boolean
+}
+
 const defaultValue = {
   state: {},
   observers: new Set(),
@@ -12,27 +19,35 @@ const defaultValue = {
 export const FreezedContext = createContext(defaultValue)
 
 export const Provider = <T extends Record<string, any> = any>(
-  props: PropsWithChildren<{ useHook: () => T }>,
+  props: PropsWithChildren<ProviderProps<T>>,
 ) => {
-  const value = props.useHook()
+  const nextState = props.useHook()
   const { current: observableValue } = useRef<ObservableValue<T>>({
-    state: value,
+    state: nextState,
     observers: new Set(),
   })
 
   useEffect(() => {
-    const changedKeys = Object.keys(value).reduce((result, curr) => {
-      if (!Object.is(observableValue.state[curr], value[curr])) {
-        result.push(curr)
+    const changedKeys = Object.keys(nextState).reduce((result, key) => {
+      const prevState = observableValue.state
+      const isSameFunction = shallowCompareFn(prevState[key], nextState[key])
+      const isSameValue = isEqual(prevState[key], nextState[key])
+
+      if (isSameFunction) return result
+      if (isSameValue) return result
+
+      if (props.logger) {
+        logger(key, prevState[key], nextState[key])
       }
-      return result
+
+      return [...result, key]
     }, [] as string[])
 
     if (changedKeys.length) {
-      observableValue.state = value
+      observableValue.state = nextState
       observableValue.observers.forEach(ob => ob(changedKeys))
     }
-  }, [value])
+  }, [nextState])
 
   return (
     <FreezedContext.Provider value={observableValue}>

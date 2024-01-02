@@ -28,6 +28,9 @@ export default defineConfig(({ command }) => {
               'createContext',
             ],
           },
+          {
+            'lodash-es': ['isFunction', 'difference', 'isEqual'],
+          },
         ],
         dts: `./typings/auto-imports.d.ts`,
         eslintrc: {
