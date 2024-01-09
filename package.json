@@ -34,7 +34,7 @@
     "lint": "eslint --ext .tsx,.ts --fix ./src",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
-    "release": "standard-version && npm publish"
+    "release": "standard-version"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

@@ -11,11 +11,10 @@ export const usePureContext = <T extends Record<string, any>>() => {
   useLayoutEffect(() => {
     const observer = (changeKeys: string[]) => {
       const depKeys = depKeysRef.current
-
-      const isStateChange =
+      const isStateChanged =
         difference([...depKeys.values()], changeKeys).length < depKeys.size
 
-      if (isStateChange) {
+      if (isStateChanged) {
         const { proxyState, depKeys } = depsCollection(freezedContext.state)
         depKeysRef.current = depKeys
 
